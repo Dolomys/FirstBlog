@@ -21,6 +21,11 @@ const PostSchema = new mongoose.Schema({
         type:Array,
         required:false,
     },
+    isPublished: {
+        type: Boolean,
+        required: true,
+        default: true,
+    }
 
 },{timestamps:true})
  
