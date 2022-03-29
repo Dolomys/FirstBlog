@@ -29,7 +29,7 @@ export const alreadyConnected = (req, res, next) =>{
 
 // check current user 
 export const checkUser = (req, res, next) => {
-    const authHeader = req.header.authorization
+    const authHeader = req.headers.authorization
     if(authHeader){
        const token = authHeader.split(" ")[1]
         jwt.verify(token, 'Secret_password', async(err,decodedToken) => {
@@ -38,8 +38,9 @@ export const checkUser = (req, res, next) => {
                 req.user = decodedToken
                 next()
             } else {
-                let user = await User.findById(decodedToken.user._id )
+                let user = await User.findOne({email: decodedToken.email })
                 req.user = user
+                console.log(user)
                 next()
             }
         });
@@ -48,5 +49,4 @@ export const checkUser = (req, res, next) => {
         next()
     }
 }
-
 

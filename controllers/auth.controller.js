@@ -44,7 +44,7 @@ export const login = async(req, res) => {
         // Create Jwt
         if(user && validated) {
             const token = jwt.sign(
-                {user},
+                {email: user.email, isAdmin:user.isAdmin},
                 'Secret_password',
                 { expiresIn: '24h' }
             )
