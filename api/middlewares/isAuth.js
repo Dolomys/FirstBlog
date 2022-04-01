@@ -23,7 +23,7 @@ export const isAuth = (req, res, next) => {
 
 // Redirect if is connected
 export const alreadyConnected = (req, res, next) =>{
-    const authHeader = req.header.authorization
+    const authHeader = req.headers.authorization
     authHeader ? res.redirect('/') : next()
 }
 

@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
 import { User } from '../models/User.js'
+import { Post } from '../models/Post.js'
 
 export const register = async(req, res) => {
     const {username, email, password, password2} = req.body
@@ -36,13 +37,18 @@ export const login = async(req, res) => {
     try{
         // User exist ?
         const user = await User.findOne({email:req.body.email })
-        !user && res.status(400).json("L'email ou le mot de passe est incorrect")  //For security issue never reveal wich is wrong
+        if(!user){
+            return res.status(400).json("L'email ou le mot de passe est incorrect") //For security issue never reveal wich is wrong
+        }   
 
         //Password is correct ?
         const validated = await bcrypt.compare(req.body.password, user.password)
-        !validated && res.status(400).json("L'email ou le mot de passe est incorrect") // For security issue never reveal wich is wrong
+        if(!validated) {
+            return res.status(400).json("L'email ou le mot de passe est incorrect") // For security issue never reveal wich is wrong
+        }
+       
 
-        // Create Jwt
+        // Create Jwt TODO Implement jwt
         if(user && validated) {
             const token = jwt.sign(
                 {email: user.email, isAdmin:user.isAdmin},
@@ -51,15 +57,36 @@ export const login = async(req, res) => {
             )
 
             console.log(token)
-            res.status(200).json({token, user: user.email})
+            //TODO change for jwt
+            res.status(200).json({user})
            
         }
     }
     catch(err){
-        res.status(500).json(err)
+        console.log(err)
     }
 }
 
-export const logout = (req, res) => {
-    res.status(200).json({token, user:null})
+export const changeAccount = async(req,res) => {
+    if(req.body.userId === req.params.id) {
+        if(req.body.password) {
+            const salt = await bcrypt.genSalt(10);
+            req.body.password = await bcrypt.hash(req.body.password, salt)
+        }
+        try{
+            const updateUser = await User.findByIdAndUpdate(req.params.id,
+                {
+                    $set: req.body
+                },{ new: true })
+            const updatePost = await Post.updateMany({username : req.body.oldUsername},{"username": updateUser.username})
+            res.status(200).json(updateUser)
+            
+        }
+        catch(err){
+            res.status(500).json(err)
+        }
+    }
+    else {
+        res.status(400).json("wong user")
+    }
 }
