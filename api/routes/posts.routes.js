@@ -1,6 +1,6 @@
 import Router from 'express';
 
-import { addPost, changePost, deletePost, getPosts, singlePost } from '../controllers/posts.controller.js';
+import { addPost, changePost, deletePost, getPosts, getPostsByCat, singlePost } from '../controllers/posts.controller.js';
 import { checkUser } from '../middlewares/isAuth.js';
 
 const router = Router()
@@ -9,8 +9,13 @@ const router = Router()
 router.post("/add", addPost)
 // Modify post
 router.put("/:id",checkUser, changePost)
+
 // get all posts
-router.get("/", getPosts)
+router.get("/cat/", getPosts)
+
+//Filter by cats
+router.get("/cat/:id", getPostsByCat)
+
 // Get single post
 router.get("/:id", singlePost)
 // Delete single post

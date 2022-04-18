@@ -2,9 +2,10 @@ import { Post } from '../models/Post.js'
 
 // Publish Post
 export const addPost = async(req, res) => {
-    const {title, desc, categories, isPublished, photo } = req.body
+    const {title, desc, cats, isPublished, photo } = req.body
     const username = req.body.username
-    console.log(req.username)
+    const categories = cats.map(e=>e.charAt(0).toUpperCase() + e.slice(1).toLowerCase())
+    console.log(categories)
     // Only admin can post
     if(true) {
    
@@ -34,8 +35,29 @@ export const addPost = async(req, res) => {
 
 // Get All Post
 export const getPosts = async(req,res) => {
-   const posts = await Post.find()
-   res.status(200).json(posts)
+    try {
+        const posts = await Post.find()
+        res.status(200).json(posts)
+    }
+    catch(err){
+        console.log(err)
+        res.status(400).json('No post available')
+    }
+  
+}
+
+export const getPostsByCat = async(req,res) => {
+    const { id } = req.params
+    try{
+        console.log(id)
+        const posts = await Post.find({categories : id})
+        res.status(200).json(posts)
+    }
+    catch(err){
+        console.log(err)
+        res.status(400).json('No post with this category')
+
+    }
 }
 
 // Get Single Post
