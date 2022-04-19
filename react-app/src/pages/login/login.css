@@ -1,0 +1,71 @@
+.login{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* background: linear-gradient(rgba(255,255,255,0.5),rgba(255,255,255,0.5)), url("https://wallpapercave.com/wp/wp4162278.jpg"); */
+    background-size: cover;
+}
+
+.loginTitle {
+    font-size: 50px;
+}
+
+.loginForm{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    padding: 2em 3em;
+}
+
+.loginForm label {
+    margin: 10px 0;
+    font-size: 20px;
+    font-style: italic;
+}
+
+.loginInput {
+    padding: 10px;
+    background-color: white !important;
+    border: none;
+    border-bottom: 1px solid black;
+    margin-bottom: 2em;
+}
+
+.loginButton {
+    margin-top: 20px;
+    cursor: pointer;
+    background-color: #94bbf1;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-weight: 600;
+}
+
+.loginButton:disabled{
+    cursor: not-allowed;
+    background-color: rgb(238, 155, 155);
+}
+.loginRegisterButton{
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background-color: teal;
+    cursor: pointer;
+    padding: 10px;
+    color: white;
+    border-radius: 5px;
+    border: none;
+
+}
+
+.linkRegister{
+    color: black;
+}
+
+i.fa-solid.fa-eye, i.fa-solid.fa-eye-slash {
+    position: relative;
+    right: 25px;
+    top: 4px;
+    cursor: pointer;
+}
