@@ -17,7 +17,7 @@ export default function MyPosts() {
   
     useEffect(()=>{
       const fetchPosts = async () => {
-        const res = await axios.get(`http://localhost:3000/api/posts/cat/`)
+        const res = await axios.get(process.env.REACT_APP_PROXY + `/api/posts/cat/`)
         //TODO filtrer dans le bac
         const postfiltered = res.data.filter(e => e.username === user.username)
         setPosts(postfiltered)

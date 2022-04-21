@@ -14,7 +14,7 @@ export default function Settings() {
   const [password2, setPassword2] = useState("")
   const {user, dispatch} = useContext(Context)
 
-  const PF ='http://localhost:3000/public/images/'
+  const PF =process.env.REACT_APP_PROXY + '/public/images/'
 
   console.log(user)
 
@@ -36,14 +36,14 @@ export default function Settings() {
         data.append("file",file)
         updatedUser.profilPic = filename
         try{
-          await axios.post('http://localhost:3000/api/upload', data)
+          await axios.post(process.env.REACT_APP_PROXY + '/api/upload', data)
         }
         catch(err){
           console.log(err)
         }
       }
       try {
-        const res = await axios.put('http://localhost:3000/api/auth/updateAcc/'+ user._id, updatedUser)
+        const res = await axios.put(process.env.REACT_APP_PROXY + '/api/auth/updateAcc/'+ user._id, updatedUser)
         window.location = "/"
        
         dispatch({type:"UPDATE_ACCOUNT", payload:res.data})

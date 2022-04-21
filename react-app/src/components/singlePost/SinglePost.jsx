@@ -18,12 +18,12 @@ export default function SinglePost() {
   const [ isPublished, setIsPublished] = useState()
   const {user} = useContext(Context)
 
-  const PF ='http://localhost:3000/public/images/'
+  const PF =process.env.REACT_APP_PROXY + '/public/images/'
 
 
   useEffect(()=>{
     const getPost = async () =>{
-      const res = await axios.get(`http://localhost:3000/api/posts/${id}`)
+      const res = await axios.get(process.env.REACT_APP_PROXY + `/api/posts/${id}`)
       setPost(res.data)
       setIsPublished(res.data.isPublished)
       setTitle(res.data.title)
@@ -49,7 +49,7 @@ export default function SinglePost() {
          data.isPublished = true
        }
 
-      const res = await axios.put(`http://localhost:3000/api/posts/${id}`, data)
+      const res = await axios.put(process.env.REACT_APP_PROXY + `/api/posts/${id}`, data)
       res && window.location.reload()
     }
     catch(err) {
@@ -59,7 +59,7 @@ export default function SinglePost() {
   const handleDelete = async() => {
     try{
       console.log(post)
-      const res = await axios.delete(`http://localhost:3000/api/posts/${id}`, { data: { username: post.username } })
+      const res = await axios.delete(process.env.REACT_APP_PROXY + `/api/posts/${id}`, { data: { username: post.username } })
       if(res){
         alert("Your post has been deleted")
         window.location = "/"

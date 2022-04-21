@@ -23,7 +23,7 @@ export default function Login() {
     dispatch({type:"LOGIN_START"})
     setPending(true)
     try{
-      const res = axios.post("http://localhost:3000/api/auth/login", 
+      const res = axios.post(process.env.REACT_APP_PROXY + "/api/auth/login", 
       {
         email: userRef.current.value,
         password: passwordRef.current.value,

@@ -16,7 +16,7 @@ export default function CategoryPost() {
 
   useEffect(()=>{
     const fetchPosts = async () => {
-      const res = await axios.get(`http://localhost:3000/api/posts/`)
+      const res = await axios.get(process.env.REACT_APP_PROXY + `/api/posts/`)
       const filterPost = res.data.filter(e=> e.isPublished === true)
     //   const filterCats = filterPost.filter(e => e.categories.includes(cat))
     //   setPosts(filterCats)

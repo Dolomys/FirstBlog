@@ -18,7 +18,7 @@ export default function Write() {
   const options = []
 
     const getCats = async () => {
-      const res = await axios.get('http://localhost:3000/api/posts/cat/')
+      const res = await axios.get(process.env.REACT_APP_PROXY + '/api/posts/cat/')
       const resCategories = []
       const a = res.data.filter(e => e.isPublished === true)
       a.forEach(e => {e.categories.forEach(e=> resCategories.push(e))})
@@ -58,7 +58,7 @@ export default function Write() {
       data.append("file",file)
       newPost.photo = filename
       try{
-        await axios.post('http://localhost:3000/api/upload', data)
+        await axios.post(process.env.REACT_APP_PROXY + '/api/upload', data)
       }
       catch(err){
 
@@ -66,7 +66,7 @@ export default function Write() {
     }
     try {
       console.log(newPost)
-      const res = await axios.post('http://localhost:3000/api/posts/add', newPost)
+      const res = await axios.post(process.env.REACT_APP_PROXY + '/api/posts/add', newPost)
       window.location.replace("/post/"+res.data._id)
     }
     catch(err) {

@@ -20,7 +20,7 @@ export default function Home() {
 
     const categories = searchParams.get('cat')
     const fetchPosts = async () => {
-      const res = await axios.get(`http://localhost:3000/api/posts/cat/${categories ? categories : "" }`)
+      const res = await axios.get(process.env.REACT_APP_PROXY + `/api/posts/cat/${categories ? categories : "" }`)
       //TODO tout filtrer dans le bac
       const filterPost = res.data.filter(e=> e.isPublished === true)
       setPosts(filterPost)

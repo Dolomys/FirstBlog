@@ -3,7 +3,7 @@ import './post.css'
 
 export default function Post({data}) {
 
-    const PF ='http://localhost:3000/public/images/'
+    const PF =process.env.REACT_APP_PROXY + '/public/images/'
 
     return (
         <div className="post">
