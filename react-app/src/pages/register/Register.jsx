@@ -23,7 +23,7 @@ export default function Register() {
     e.preventDefault();
     try{
       setError(false)
-      const res = await axios.post(process.env.REACT_APP_PROXY + "/auth/register", {
+      const res = await axios.post(process.env.REACT_APP_PROXY + "/api/auth/register", {
         username,
         email,
         password,

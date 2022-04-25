@@ -18,7 +18,7 @@ export default function SinglePost() {
   const [ isPublished, setIsPublished] = useState()
   const {user} = useContext(Context)
 
-  const PF =process.env.REACT_APP_PROXY + '/public/images/'
+  const PF =process.env.REACT_APP_PROXY + '/api/public/images/'
 
 
   useEffect(()=>{
