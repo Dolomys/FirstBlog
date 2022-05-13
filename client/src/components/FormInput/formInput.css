@@ -1,0 +1,36 @@
+.formInput {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.formInput label {
+    margin-top: 1em;
+}
+
+.formInput input {
+    padding: 1em;
+    border: none;
+    border-bottom: 1px solid grey;
+}
+
+span.errorMsg {
+    font-size: 14px;
+    color: red;
+    padding: 3px;
+    display: none;
+}
+
+input:invalid[focused='true']{
+    border: 1px solid red;
+}
+
+input:invalid[focused='true'] ~ span.errorMsg {
+    display: block;
+}
+
+i#pass1{
+    position: absolute;
+    right: 10px;
+    top: 50px;
+}
