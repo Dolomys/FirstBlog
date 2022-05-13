@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios'
 import { useSearchParams } from 'react-router-dom';
-
-import Header from '../../components/header/Header'
-import Posts from '../../components/posts/Posts'
 import Sidebar from '../../components/sidebar/Sidebar'
 import './home.css'
 import { PaginatedItems } from '../../components/paginate/Paginate';

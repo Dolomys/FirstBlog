@@ -1,13 +1,11 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import axios from 'axios'
-import Select from 'react-select'
 import CreatableSelect from "react-select/creatable";
-import {Editor, EditorState} from 'draft-js';
 import 'draft-js/dist/Draft.css';
 
 import { Context } from "../../context/Context";
 import'./write.css'
-import TextEditor from '../../components/TextEditor/TextEditor';
+
 
 export default function Write() {
 
@@ -17,12 +15,6 @@ export default function Write() {
   const [categories, setCategories] = useState()
   const {user} = useContext(Context)
   const [isPublished, setIsPublished] = useState(true)
- 
-
-  const [editorState, setEditorState] = useState(
-    () => EditorState.createEmpty(),
-  );
-
   const options = []
 
     const getCats = async () => {
