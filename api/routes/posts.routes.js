@@ -1,6 +1,6 @@
 import Router from 'express';
 
-import { addPost, changePost, deletePost, getPosts, getPostsByCat, singlePost } from '../controllers/posts.controller.js';
+import { addComment, addPost, changePost, deletePost, getPosts, getPostsByCat, singlePost } from '../controllers/posts.controller.js';
 import { checkUser } from '../middlewares/isAuth.js';
 
 const router = Router()
@@ -20,5 +20,8 @@ router.get("/cat/:id", getPostsByCat)
 router.get("/:id", singlePost)
 // Delete single post
 router.delete('/:id', deletePost)
+
+//Add comment 
+router.put("/comment/:id", addComment)
 
 export default router

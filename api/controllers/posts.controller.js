@@ -103,6 +103,30 @@ export const changePost = async(req,res) => {
     }
 }
 
+
+//Add comment
+export const addComment= async(req,res) => {
+    const {comments} = req.body
+    const username = req.body.username
+
+    try{
+        const post = await Post.findById(req.params.id)
+        !post && res.status("400").json("this post doesn't exist")
+            try{
+                const updatePost = await Post.findByIdAndUpdate(req.params.id,{
+                    $push:{comments:comments}
+                },{new:true})
+                res.status(200).json(updatePost)
+            }
+            catch(err){
+                res.status(500).json(err)
+            }
+    }
+    catch(err){
+        res.status(500).json(err)
+    }
+}
+
 // Delete Post
 export const deletePost = async(req,res) => {
     
