@@ -1,0 +1,20 @@
+.postsAndPaginate {
+    flex:3
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+}
+
+.pagination li {
+    color: #94bbf1;;
+    padding: 1em;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.activePage a{
+    color: #4485dd;;
+}
