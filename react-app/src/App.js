@@ -24,7 +24,7 @@ import { Menu } from "./components/menu/Menu";
 
 function App() {
    const { user } = useContext(Context)
-   const [side, setSide] = useState(true)
+   const [side, setSide] = useState(false)
 
   return (
     <div className="App">
