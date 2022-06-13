@@ -7,6 +7,7 @@ import Sidebar from '../../components/sidebar/Sidebar'
 import './settings.css'
 import { Context } from "../../context/Context";
 import loader from "../../img/loader.gif"
+import celesteImg from'../../img/celesteImg.png'
 
 
 export default function Settings() {
@@ -96,13 +97,13 @@ export default function Settings() {
                 {/* <span className="settingsDeleteTitle">Delete Account</span> */}
             </div>
 
-            <form className='imgForm' onSubmit={handleSubmit}>
+            <form className='imgForm' onSubmit={handleSubmit} enctype="multipart/form-data">
                 <label>Profil Picture</label>
                 <div className="settingsPP">
                 {file ? (
                 <img src={URL.createObjectURL(file)} alt="" className="topImg" />
                 ) : (
-                <img className='topImg' src={PF + (user.profilPic || "celesteicon.png")}  alt='profil' />
+                <img className='topImg' src={user.profilPic ? (PF + user.profilPic)  : celesteImg}   alt='profil' />
                 )}
                   <label htmlFor="fileInput">
                       <i className=" settingsPPIcon fa-solid fa-user"></i>
