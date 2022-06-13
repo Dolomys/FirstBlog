@@ -1,4 +1,6 @@
-.register {
+@import "../../global.scss";
+
+.login {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -10,12 +12,21 @@
     width: 100%;
 }
 
-.registerTitle {
+.loginTitle {
     margin-top: 2em;
     color: white;
 }
 
-form.registerForm {
+.loginDiv  {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 7em;
+}
+
+form.loginForm {
     display: flex;
     flex-direction: column;
     border: 1px solid grey;
@@ -23,7 +34,10 @@ form.registerForm {
     padding: 2em 5em;
     background-color: white;
     width: 15%;
-    margin-bottom: 9.8em;
+
+    @include mobile {
+        width: 50%;
+    }
 }
 
 button.submitBtn {
@@ -34,4 +48,12 @@ button.submitBtn {
     padding: 1em;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.errorLogin {
+    color: white;
+    background-color: rgb(250, 66, 66);
+    padding: 1em;
+    border-radius: 5px;
+    margin-top: 1em;
 }

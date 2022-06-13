@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios'
 import { useSearchParams } from 'react-router-dom';
 import Sidebar from '../../components/sidebar/Sidebar'
-import './home.css'
+import './home.scss'
 import { PaginatedItems } from '../../components/paginate/Paginate';
 
 

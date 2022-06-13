@@ -1,15 +1,19 @@
 import { useState } from 'react'
 import axios from 'axios'
+import loader from "../../img/loader.gif"
 import FormInput from '../../components/FormInput/FormInput'
-import './register.css'
+import './register.scss'
+import { motion } from "framer-motion"
 
 export default function Register() {
 
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
+  const [success, setSuccess] = useState("")
+
     const [values,setValues] = useState({
-      firstName:'',
-      lastName:'',
       email:'',
-      birthday:'',
+      username:'',
       password:''
     })
 
@@ -26,27 +30,11 @@ export default function Register() {
       },
       {
         id:2,
-        name:"firstName",
+        name:"username",
         type:"text",
-        placeholder:'First Name',
-        errorMessage:'Your first name cannot contain any special character',
-        label:'First Name'
-      },
-      {
-        id:3,
-        name:"lastName",
-        type:"text",
-        placeholder:'Last Name',
-        errorMessage:'Your last name cannot contain any special character',
-        label:'Last Name'
-      },
-      {
-        id:4,
-        name:"birthday",
-        type:"date",
-        placeholder:'Birthday',
-        errorMessage:'Please enter your birthdate',
-        label:'Birthday',
+        placeholder:'Username',
+        errorMessage:'Please enter a Username',
+        label:'Username',
         required:true,
       },
       {
@@ -71,9 +59,22 @@ export default function Register() {
     ]
 
     const HandleSubmit = async(e) => {
-      console.log(values)
       e.preventDefault()
-      await axios.post(process.env.REACT_APP_PROXY + "/api/auth/register", values)
+      setLoading(true)
+      setError("")
+      try {
+        await axios.post(process.env.REACT_APP_PROXY + "/api/auth/register", values)
+        setLoading(false)
+        setSuccess(true)
+        setTimeout(() =>  window.location.replace("/login"), 3000)
+       
+      }
+      catch(err) {
+        console.log(err.response.data)
+        setLoading(false)
+        setError(err.response.data)
+      }
+  
       
     }
 
@@ -88,8 +89,15 @@ export default function Register() {
             {inputs.map(e => (
               <FormInput key={e.id} {...e} value={values[e.name]} onChange={onChange} />
             ))}
-            <button className="submitBtn" type='submit'>Register</button>
+            <motion.button className="submitBtn"
+             type='submit'
+             whileHover={{ scale: 1.1 }}
+             whileTap={{ scale: 0.9 }}
+             >Register</motion.button>
         </form>
+        {success && <span className='successRegister'>Account Created !</span>}
+        {error && <span className='errorRegister'>{error}</span>}
+        {loading && <img src={loader} alt="loading..." /> }
     </div>
   )
 }

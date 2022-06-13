@@ -3,19 +3,15 @@ import { Link } from 'react-router-dom';
 import { useContext } from "react";
 import { Context } from "../../context/Context";
 
-export default function TopBar() {
+export default function TopBar({side, setSide}) {
 
     const { user, dispatch } = useContext(Context)
     const PF =process.env.REACT_APP_PROXY + '/public/images/'
 
    const handleLogout = () => {
-       console.log("hi")
+       console.log("logout")
        dispatch({type: "LOGOUT"})
        window.location="/"
-   }
-
-   const responsiveBar = () => {
-       console.log('hello')
    }
 
   return (
@@ -54,7 +50,7 @@ export default function TopBar() {
                   <Link to="/register" className="topListItem">Register</Link>
                 </>
             }  
-        <i class="fa-solid fa-bars" onClick={responsiveBar}></i>
+        <i class="fa-solid fa-bars" onClick={() => setSide(!side)}></i>
         </div>
     </div>
   )

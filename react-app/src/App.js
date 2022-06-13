@@ -3,7 +3,7 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Context } from "./context/Context";
 
 
@@ -19,16 +19,19 @@ import NotFound from "./pages/notFound/NotFound";
 import ScrollToTop from "./components/ScrollTop";
 import Maps from "./pages/Maps/Maps";
 import Header from "./components/header/Header";
+import { Menu } from "./components/menu/Menu";
 
 
 function App() {
    const { user } = useContext(Context)
+   const [side, setSide] = useState(true)
 
   return (
     <div className="App">
       <BrowserRouter>
       <ScrollToTop />
-      <TopBar />
+     <TopBar side={side} setSide={setSide}/>
+     <Menu side={side} setSide={setSide}/>
       <Header />
         <Routes>
             <Route path="/" element={<Home /> } />

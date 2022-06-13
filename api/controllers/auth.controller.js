@@ -5,14 +5,15 @@ import { User } from '../models/User.js'
 import { Post } from '../models/Post.js'
 
 export const register = async(req, res) => {
-    const {username, email, password, password2} = req.body
-    console.log(req.body)
+    const {username, email, password} = req.body
     !req.body && res.status(400).json('there is no body')
+    console.log(req.body)
     //TO DO - handle error
-    if(!password === password2)
-    {
-        res.status(401).json("Les mots de passe ne correspondent pas")
-    }
+    const emailExist = await User.findOne({ email: email });
+    if (emailExist) return res.status(401).json("this Email already exist")
+
+    const userExist = await User.findOne({ username: username });
+    if (userExist) return res.status(401).json("this Username already exist")
 
     try{
         const salt = await bcrypt.genSalt(10)
@@ -24,12 +25,11 @@ export const register = async(req, res) => {
         })
 
         const user = await newUser.save()
-        console.log(user)
-        res.status(200).json(user)
+        return res.status(200).json('User created !')
     }
     catch(err){
         console.log(err)
-        res.status(500).json(err)
+        return res.status(500).json(err)
     }
 }
 

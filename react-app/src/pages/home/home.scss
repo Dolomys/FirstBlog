@@ -1,0 +1,10 @@
+@import "../../global.scss";
+
+.home{
+    display: flex;
+
+    @include mobile {
+        display: block;
+    }
+    
+}

@@ -4,7 +4,7 @@ import CreatableSelect from "react-select/creatable";
 import 'draft-js/dist/Draft.css';
 
 import { Context } from "../../context/Context";
-import'./write.css'
+import'./write.scss'
 
 
 export default function Write() {
@@ -81,7 +81,11 @@ export default function Write() {
         <img src={URL.createObjectURL(file)} alt="" className="writeImg" />
         )}
         <form className="writeForm" onSubmit={handleSubmit}>
-            <div className="writeFormGroup">
+          <div className="submit">
+          <button className="writeSubmit" type='submit' id="Publish">Publish</button>
+         <button className="draftSubmit" type='submit' id="draft" onClick={e => setIsPublished(false)}>Save as Draft</button>
+          </div>
+           <div className="writeFormGroup">
                 <label htmlFor="fileInput">
                  <i className="writeIcon fa-solid fa-plus"></i>
                 </label>
@@ -105,8 +109,6 @@ export default function Write() {
                 />
                 {/* <Editor editorState={editorState} onChange={setEditorState} /> */}
             </div>
-            <button className="writeSubmit" type='submit' id="Publish">Publish</button>
-            <button className="draftSubmit" type='submit' id="draft" onClick={e => setIsPublished(false)}>Save as Draft</button>
         </form>
     </div>
   )

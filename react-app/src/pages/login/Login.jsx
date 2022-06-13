@@ -1,7 +1,9 @@
-import './login.css'
+import './login.scss'
 
 import { useContext } from 'react'
 import axios from 'axios'
+import { motion } from "framer-motion"
+import loader from "../../img/loader.gif"
 
 import { Context } from '../../context/Context'
 import { useState } from 'react'
@@ -11,6 +13,8 @@ import FormInput from '../../components/FormInput/FormInput'
   export default function Login() {
 
   const {dispatch} = useContext(Context)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
 
   const [values,setValues] = useState({
     email:'',
@@ -41,16 +45,21 @@ import FormInput from '../../components/FormInput/FormInput'
   
     const handleSubmit = async(e) =>{
       e.preventDefault()
+      setLoading(true)
+      setError("")
       dispatch({type:"LOGIN_START"})
       try{
         const res = axios.post(process.env.REACT_APP_PROXY + "/api/auth/login", values)
         let token = await res
+        setLoading(false)
         dispatch({type:"LOGIN_SUCCESS", payload:token.data.user})
         window.location = "/"
         console.log(token)
       }
       catch(err){
         dispatch({type:"LOGIN_FAILURE"})
+        setLoading(false)
+        setError(err.response.data)
       }
     }
   
@@ -66,8 +75,15 @@ import FormInput from '../../components/FormInput/FormInput'
               {inputs.map(e => (
                 <FormInput key={e.id} {...e} value={values[e.name]} onChange={onChange} />
               ))}
-              <button className="submitBtn" type='submit'>login</button>
+              <motion.button
+               className="submitBtn"
+               type='submit'
+               whileHover={{ scale: 1.1 }}
+               whileTap={{ scale: 0.9 }}
+               >login</motion.button>
           </form>
+          {error && <span className='errorLogin'>{error}</span>}
+          {loading && <img src={loader} alt="loading..." /> }
         </div>
       </div>
     )

@@ -4,6 +4,9 @@ import { Post } from '../models/Post.js'
 export const addPost = async(req, res) => {
     const {title, desc, cats, isPublished, photo } = req.body
     const username = req.body.username
+    if(!username) {
+        username = "Unknown"
+    }
     const categories = cats.map(e=>e.charAt(0).toUpperCase() + e.slice(1).toLowerCase())
     console.log(categories)
     // Only admin can post
@@ -21,14 +24,14 @@ export const addPost = async(req, res) => {
    
            const post = await newPost.save()
            console.log(post)
-           res.status(200).json(post)
+           return res.status(200).json(post)
        }
        catch(err){
-           res.status(500).json(err)
+           return res.status(500).json(err)
        }
     }
     else {
-        res.status(401).json("You dont have the rights !")
+       return  res.status(401).json("You dont have the rights !")
     }
   
 }

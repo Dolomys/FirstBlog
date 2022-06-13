@@ -1,10 +1,13 @@
+@import "../../global.scss";
+
 .write{
-    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
 }
 
 .writeImg{
-    margin-left: 150px;
-    width: 70vw;
+    width: 99%;
+    align-self: center;
     height: 250px;
     border-radius: 10px;
     object-fit: cover;
@@ -12,10 +15,15 @@
 
 .writeForm{
     position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.submit {
+    margin-top: 2em;
 }
 
 .writeFormGroup{
-    margin-left: 150px;
     display: flex;
     align-items: center;
 }
@@ -50,9 +58,8 @@
 }
 
 .writeSubmit{
-    position: absolute;
-    top: 20px;
-    right: 50px;
+    align-self: flex-start;
+    width: 10em;
     color: white;
     background-color: teal;
     padding: 10px;
@@ -60,11 +67,16 @@
     border-radius: 10px;
     cursor: pointer;
     font-size: 16px;
+
+    @include mobile {
+        align-self: flex-start;
+        width: 50%;
+    }
+
 }
 .draftSubmit{
-    position: absolute;
-    top: 70px;
-    right: 50px;
+    align-self: flex-end;
+    width: 10em;
     color: white;
     background-color: coral;
     padding: 10px;
@@ -72,4 +84,9 @@
     border-radius: 10px;
     cursor: pointer;
     font-size: 16px;
+
+    @include mobile {
+        position: relative;
+        left: 0;
+      }
 }

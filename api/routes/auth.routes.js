@@ -5,8 +5,8 @@ import { alreadyConnected, isAuth } from '../middlewares/isAuth.js'
 
 const router = Router()
 
-router.post('/register',alreadyConnected, register)
-router.post('/login', alreadyConnected, login)
+router.post('/register', register)
+router.post('/login', login)
 router.put('/updateAcc/:id', changeAccount)
 // router.post('/refresh', refrehToken)
 
