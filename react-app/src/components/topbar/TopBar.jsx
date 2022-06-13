@@ -2,6 +2,7 @@ import "./topbar.css"
 import { Link } from 'react-router-dom';
 import { useContext } from "react";
 import { Context } from "../../context/Context";
+import celesteImg from'../../img/celesteImg.png'
 
 export default function TopBar({side, setSide}) {
 
@@ -37,7 +38,7 @@ export default function TopBar({side, setSide}) {
                 <>
                 <Link to={`/settings/${user._id}`} >
                     <img className='topImg'
-                        src={PF + (user.profilPic || "celesteicon.png")} 
+                        src={user.profilPic ? (PF + user.profilPic)  : celesteImg} 
                         alt=''>
                     </img>
                 </Link>

@@ -76,6 +76,7 @@ export default function Settings() {
       }
       catch(err) {
         setError(err.response.data)
+        console.log(err.response)
         setLoading(false)
       }
     }
@@ -119,7 +120,7 @@ export default function Settings() {
                 <button className="settingsSubmit" type="submit">Change Password</button>
             </form>
             <div className="notifications">   
-            {error && <span className='errorRegister'>{error}</span>}
+            {/* {error && <span className='errorRegister'>{error}</span>} */}
             {loading && <img src={loader} alt="loading..." /> }
             {success && <span className='successMsg'>Your account has been modified !</span>}
             </div>
