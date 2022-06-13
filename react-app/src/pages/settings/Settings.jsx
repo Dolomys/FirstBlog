@@ -20,7 +20,7 @@ export default function Settings() {
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState("")
 
-  const PF =process.env.REACT_APP_PROXY + '/public/images/'
+  const PF = process.env.REACT_APP_PROXY + '/public/images/'
 
   console.log(user)
 
