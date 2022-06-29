@@ -2,6 +2,8 @@ import { useContext, useState } from 'react'
 import axios from 'axios'
 import CreatableSelect from "react-select/creatable";
 import 'draft-js/dist/Draft.css';
+import {getStorage, ref, uploadBytesResumable, getDownloadURL} from 'firebase/storage'
+import app from '../../firebase'
 
 import { Context } from "../../context/Context";
 import'./write.scss'
@@ -52,25 +54,41 @@ export default function Write() {
     }
     console.log(newPost)
     if(file){
-      const data = new FormData()
-      const filename = Date.now() + file.name;
-      data.append("name",filename)
-      data.append("file",file)
-      newPost.photo = filename
-      try{
-        await axios.post(process.env.REACT_APP_PROXY + '/api/upload', data)
-      }
-      catch(err){
+      const fileName = new Date().getTime() + file.name
+      const storage = getStorage(app)
+      const storageRef =  ref(storage, fileName)
+      const uploadTask = uploadBytesResumable(storageRef, file);
 
-      }
-    }
-    try {
-      console.log(newPost)
-      const res = await axios.post(process.env.REACT_APP_PROXY + '/api/posts/add', newPost)
-      window.location.replace("/post/"+res.data._id)
-    }
-    catch(err) {
-      console.log(err)
+      // Register three observers:
+      // 1. 'state_changed' observer, called any time the state changes
+      // 2. Error observer, called on failure
+      // 3. Completion observer, called on successful completion
+      uploadTask.on('state_changed', 
+        (snapshot) => {
+          // Observe state change events such as progress, pause, and resume
+          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log('Upload is ' + progress + '% done');
+          switch (snapshot.state) {
+            case 'paused':
+              console.log('Upload is paused');
+              break;
+            case 'running':
+              console.log('Upload is running');
+              break;
+          }
+        }, 
+        (error) => {
+          // Handle unsuccessful uploads
+        }, 
+        async() => {
+          // Handle successful uploads on complete
+          // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+          const url = await getDownloadURL(uploadTask.snapshot.ref)
+          newPost.photo = url
+          const res = await axios.post(process.env.REACT_APP_PROXY + '/api/posts/add', newPost)
+          window.location.replace("/post/"+res.data._id)
+        })
     }
      
   }

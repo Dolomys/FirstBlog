@@ -28,8 +28,6 @@ export default function SinglePost() {
 
   const [ update, setUpdate] = useState(false)
 
-  const PF =process.env.REACT_APP_PROXY + '/public/images/'
-
   const comment = {
     id:"1",
     type:"text",
@@ -169,7 +167,7 @@ export default function SinglePost() {
         <>
         <div className="singlePostWrapper">
           {post.photo && (
-              <img src={PF + post.photo}
+              <img src={post.photo}
               alt="Blog Post" 
               className="postImg" />
               )}
@@ -241,7 +239,7 @@ export default function SinglePost() {
             {post.comments && post.comments.slice(0).reverse().map(e => (
               <div className='comment' key={e._id}>
                 <div className='commentAvatar'>
-                    <img src={PF + e.userPhoto} />
+                    <img src={e.userPhoto} />
                 </div>
                 <div className="commentBody">
                   <div  className='commentInfo'> 

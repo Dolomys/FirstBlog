@@ -3,13 +3,11 @@ import './post.css'
 
 export default function Post({data}) {
 
-    const PF = process.env.REACT_APP_PROXY + '/public/images/'
-
     return (
         <div className="post">
             <Link to={`/post/${data._id}`} className='link'>
             {data.photo && (
-            <img src={PF + data.photo}
+            <img src={data.photo}
              alt="Blog Post" 
              className="postImg" />
             )}

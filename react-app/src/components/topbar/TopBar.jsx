@@ -7,7 +7,6 @@ import celesteImg from'../../img/celesteImg.png'
 export default function TopBar({side, setSide}) {
 
     const { user, dispatch } = useContext(Context)
-    const PF =process.env.REACT_APP_PROXY + '/public/images/'
 
    const handleLogout = () => {
        console.log("logout")
@@ -38,7 +37,7 @@ export default function TopBar({side, setSide}) {
                 <>
                 <Link to={`/settings/${user._id}`} >
                     <img className='topImg'
-                        src={user.profilPic ? (PF + user.profilPic)  : celesteImg} 
+                        src={user.profilPic ? user.profilPic : celesteImg} 
                         alt=''>
                     </img>
                 </Link>
